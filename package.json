@@ -1,0 +1,32 @@
+{
+  "name": "blake2b-gpu-miner",
+  "version": "1.0.0",
+  "description": "GPU miner for Blake2b algorithm using CUDA",
+  "main": "native.js",
+  "scripts": {
+    "install": "node-gyp rebuild",
+    "build": "node-gyp rebuild",
+    "rebuild": "node-gyp rebuild",
+    "clean": "node-gyp clean && rm -rf build",
+    "test": "node app.js"
+  },
+  "keywords": [
+    "blake2b",
+    "gpu",
+    "miner",
+    "cuda",
+    "mining"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "node-addon-api": "^5.0.0",
+    "nan": "^2.17.0"
+  },
+  "devDependencies": {
+    "node-gyp": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
