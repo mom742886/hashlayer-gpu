@@ -4,8 +4,8 @@
       "target_name": "blake2b_miner_cuda",
       "sources": [
         "miner.cc",
-        "kernels.cu",
-        "blake2b.cu"
+        "build/obj/kernels.o",
+        "build/obj/blake2b.o"
       ],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")"
@@ -110,109 +110,6 @@
       ],
       "libraries": [
         "<!@(node -p \"require('node-addon-api').gyp\")"
-      ],
-      "rules": [
-        {
-          "rule_name": "cuda_compile",
-          "extension": "cu",
-          "inputs": [
-            "<(cuda_toolkit_dir)/bin/nvcc"
-          ],
-          "outputs": [
-            "<(INTERMEDIATE_DIR)/<(RULE_INPUT_ROOT).o"
-          ],
-          "message": "Compiling CUDA file <(RULE_INPUT_PATH)",
-          "process_outputs_as_sources": 1,
-          "action": [
-            "<(cuda_toolkit_dir)/bin/nvcc",
-            "-gencode=arch=compute_50,code=sm_50",
-            "-gencode=arch=compute_60,code=sm_60",
-            "-gencode=arch=compute_70,code=sm_70",
-            "-gencode=arch=compute_75,code=sm_75",
-            "-gencode=arch=compute_80,code=sm_80",
-            "-gencode=arch=compute_86,code=sm_86",
-            "-gencode=arch=compute_89,code=sm_89",
-            "-O3",
-            "-use_fast_math",
-            "-Xcompiler",
-            "-fPIC",
-            "-c",
-            "<(RULE_INPUT_PATH)",
-            "-o",
-            "<(INTERMEDIATE_DIR)/<(RULE_INPUT_ROOT).o"
-          ],
-          "conditions": [
-            [
-              "OS=='mac'",
-              {
-                "action": [
-                  "<(cuda_toolkit_dir)/bin/nvcc",
-                  "-gencode=arch=compute_50,code=sm_50",
-                  "-gencode=arch=compute_60,code=sm_60",
-                  "-gencode=arch=compute_70,code=sm_70",
-                  "-gencode=arch=compute_75,code=sm_75",
-                  "-gencode=arch=compute_80,code=sm_80",
-                  "-gencode=arch=compute_86,code=sm_86",
-                  "-gencode=arch=compute_89,code=sm_89",
-                  "-O3",
-                  "-use_fast_math",
-                  "-Xcompiler",
-                  "-fPIC",
-                  "-c",
-                  "<(RULE_INPUT_PATH)",
-                  "-o",
-                  "<(INTERMEDIATE_DIR)/<(RULE_INPUT_ROOT).o"
-                ]
-              }
-            ],
-            [
-              "OS=='linux'",
-              {
-                "action": [
-                  "<(cuda_toolkit_dir)/bin/nvcc",
-                  "-gencode=arch=compute_50,code=sm_50",
-                  "-gencode=arch=compute_60,code=sm_60",
-                  "-gencode=arch=compute_70,code=sm_70",
-                  "-gencode=arch=compute_75,code=sm_75",
-                  "-gencode=arch=compute_80,code=sm_80",
-                  "-gencode=arch=compute_86,code=sm_86",
-                  "-gencode=arch=compute_89,code=sm_89",
-                  "-O3",
-                  "-use_fast_math",
-                  "-Xcompiler",
-                  "-fPIC",
-                  "-c",
-                  "<(RULE_INPUT_PATH)",
-                  "-o",
-                  "<(INTERMEDIATE_DIR)/<(RULE_INPUT_ROOT).o"
-                ]
-              }
-            ],
-            [
-              "OS=='win'",
-              {
-                "action": [
-                  "<(cuda_path)/bin/nvcc.exe",
-                  "-gencode=arch=compute_50,code=sm_50",
-                  "-gencode=arch=compute_60,code=sm_60",
-                  "-gencode=arch=compute_70,code=sm_70",
-                  "-gencode=arch=compute_75,code=sm_75",
-                  "-gencode=arch=compute_80,code=sm_80",
-                  "-gencode=arch=compute_86,code=sm_86",
-                  "-gencode=arch=compute_89,code=sm_89",
-                  "-O3",
-                  "-use_fast_math",
-                  "-Xcompiler",
-                  "/MD",
-                  "-c",
-                  "<(RULE_INPUT_PATH)",
-                  "-o",
-                  "<(INTERMEDIATE_DIR)/<(RULE_INPUT_ROOT).o"
-                ]
-              }
-            ]
-          ]
-        }
       ]
     }
   ]
